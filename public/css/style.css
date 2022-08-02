@@ -1,0 +1,12 @@
+.container {
+    width: 360px;
+    min-height: 360px;
+    border-radius: 5px;
+    margin: 0 auto;
+    box-shadow: 0 2px 9px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+}
