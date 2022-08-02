@@ -1,6 +1,6 @@
 const checkEmty = (req, res, next) => {
-  let { name, age, numberClass } = req.body;
-  if(name && age && numberClass) {
+  let { fullName, age, numberClass } = req.body;
+  if(fullName && age && numberClass) {
     next()
   }else {
     res.status(500).send("Không được bỏ trống !")

@@ -5,8 +5,8 @@ const {
   update,
   deleteSt
 } = require("../services/student.services");
-const getAllStudent = (req, res) => {
-  const students = getStudent();
+const getAllStudent = async (req, res) => {
+  const students = await getStudent();
   if (students) {
     res.status(200).send(students);
   } else {
@@ -14,37 +14,37 @@ const getAllStudent = (req, res) => {
   }
 };
 
-const getStudentById = (req, res) => {
+const getStudentById = async (req, res) => {
   const { id } = req.params;
-  let student = findStudentById(id);
+  let student = await findStudentById(id);
   if (student) {
     res.status(200).send(student);
   }
   res.status(404).send("Not Found !");
 };
 
-const createStudent = (req, res) => {
+const createStudent = async (req, res) => {
   let data = req.body;
-  let students = create(data);
+  let students = await create(data);
   res.status(201).send(students);
 };
 
-const updateStudent = (req, res) => {
+const updateStudent = async (req, res) => {
   let { id } = req.params;
   let data = req.body;
-  let students = update(data, id);
+  let students = await update(data, id);
   if (students) {
-    res.status(201).send(students);
+    res.status(201).send("Cập nhật student thành công!");
   } else {
     res.status(404).send("Không tìm thấy ID!");
   }
 };
 
-const deleteStudent = (req, res) => {
+const deleteStudent = async (req, res) => {
   let { id } = req.params;
-  let student = deleteSt(id)
+  let student = await deleteSt(id)
   if (student) {
-    res.status(201).send(students);
+    res.status(201).send("Xóa student thành công");
   } else {
     res.status(404).send("Không tìm thấy ID!");
   }

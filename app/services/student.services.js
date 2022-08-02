@@ -1,80 +1,59 @@
-const students = [
-  {
-    id: 1,
-    name: "Ba",
-    age: "22",
-    numberClass: "12",
-  },
-  {
-    id: 2,
-    name: "Chi",
-    age: "22",
-    numberClass: "11",
-  },
-  {
-    id: 3,
-    name: "BaChi",
-    age: "24",
-    numberClass: "10",
-  },
-];
+const { Student } = require("../model");
 
-const getStudent = () => {
+const getStudent = async () => {
+  const students = await Student.findAll();
   if (students) {
     return students;
   } else {
     return false;
   }
 };
-const findStudentById = (id) => {
-  let student = students.find((item) => item.id == id);
+const findStudentById = async (id) => {
+  const student = await Student.findOne({
+    where: {
+      id,
+    },
+  });
   if (student) {
     return student;
   }
   return false;
 };
 
-const create = (data) => {
-  let studentData = [
-    ...students,
-    {
-      id: Math.random(),
-      name: data.name,
-      age: data.age,
-      numberClass: data.numberClass,
-    },
-  ];
-  return studentData;
+const create = async (data) => {
+  const newStudent = await Student.create(data);
+  return newStudent;
 };
 
-const update = (data, id) => {
-  let index = students.findIndex((item) => item.id == id);
-  if (index != -1) {
-    students[index] = {
-      id: id,
-      name: data.name,
-      age: data.age,
-      numberClass: data.numberClass,
-    };
-    return students;
+const update = async (data, id) => {
+  const student = await Student.update(data, {
+    where: {
+      id,
+    },
+  });
+  if (student) {
+    return true;
   } else {
     return false;
   }
 };
 
-const deleteSt = (id) => {
-    let index = students.findIndex((item) => item.id == id);
-    if (index != -1) {
-      students.splice(index, 1);
-      return students
-    } else {
-      return false;
-    }
-}
+const deleteSt = async (id) => {
+  const student = await Student.destroy({
+    where: {
+      id,
+    },
+  });
+  if (student) {
+    return true;
+  } else {
+    return false;
+  }
+};
 module.exports = {
   getStudent,
   findStudentById,
   create,
   update,
-  deleteSt
+  deleteSt,
 };
